@@ -1,53 +1,92 @@
+// MainView.java
 package bank.io.view;
 
-import java.awt.*;
-import java.util.List;
-
 import javax.swing.*;
+import java.awt.*;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
-import bank.io.controller.ProductController;
-import bank.io.model.Product;
 import bank.io.model.User;
 
-public class MainView {
-	private final ProductController controller = new ProductController();
+public class MainView extends JFrame {
+	private final User user;
 
-	public void createWithUser(User user) {
-		JFrame frame = new JFrame(user.username + "님을 위한 예적금 추천");
-		frame.setSize(500, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public MainView(User user) {
+		this.user = user;
 
-		JPanel infoPanel = new JPanel();
-		infoPanel.setLayout(new GridLayout(2, 2));
-		infoPanel.add(new JLabel("나이:"));
-		infoPanel.add(new JLabel(String.valueOf(user.age)));
-		infoPanel.add(new JLabel("성별/직업:"));
-		infoPanel.add(new JLabel(user.gender + " / " + user.job));
+		setTitle("INHA-Banking 메인화면");
+		setSize(600, 400);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		JPanel resultPanel = new JPanel();
-		resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
-		JScrollPane scrollPane = new JScrollPane(resultPanel);
+		setLayout(new BorderLayout());
+		setJMenuBar(createMenuBar());
 
-		List<Product> products = controller.getRecommendations(user.age, user.gender, user.job);
-		for (Product p : products) {
-			JPanel card = new JPanel(new GridLayout(0, 1));
-			card.setBorder(BorderFactory.createTitledBorder(p.name));
-			card.add(new JLabel("종류: " + p.type));
-			card.add(new JLabel("금리: " + p.interestRate + "%"));
-			card.add(new JLabel("기간: " + p.periodMonths + "개월"));
-			card.add(new JLabel("예상 수익: " + calculate(p) + "원"));
-			resultPanel.add(card);
+		JPanel centerPanel = new JPanel(null); // 배치 직접 제어
+		centerPanel.setBackground(Color.WHITE);
+
+		// 이미지 아이콘
+		JLabel imageLabel = new JLabel();
+		try {
+			Image img = ImageIO.read(new File("images/Duck.png")); // 실제 이미지 경로
+			Image scaled = img.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+			imageLabel.setIcon(new ImageIcon(scaled));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		imageLabel.setBounds(30, 30, 120, 120);
+		centerPanel.add(imageLabel);
 
-		frame.setLayout(new BorderLayout(10, 10));
-		frame.add(infoPanel, BorderLayout.NORTH);
-		frame.add(scrollPane, BorderLayout.CENTER);
-		frame.setVisible(true);
+		JLabel greeting = new JLabel("안녕하세요, " + user.username + "님. INHA-Banking입니다.");
+		greeting.setFont(new Font("SansSerif", Font.BOLD, 20));
+		greeting.setForeground(Color.BLACK);
+		greeting.setBounds(170, 70, 400, 40);
+		centerPanel.add(greeting);
+
+		add(centerPanel, BorderLayout.CENTER);
 	}
 
-	private String calculate(Product p) {
-		double principal = 1000000;
-		double total = principal * Math.pow(1 + (p.interestRate / 100), p.periodMonths / 12.0);
-		return String.format("%,d", (int) total);
+	private JMenuBar createMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+
+		// 첫 번째 메뉴: 추천 상품
+		JMenu recommendMenu = new JMenu("추천 상품");
+		JMenuItem recommendItem = new JMenuItem("추천 상품 보기");
+		recommendItem.addActionListener(e -> {
+			RecommendationView view = new RecommendationView(user);
+			view.setVisible(true);
+		});
+		recommendMenu.add(recommendItem);
+
+		// 두 번째 메뉴: 수익 계산
+		JMenu profitMenu = new JMenu("수익 계산");
+		JMenuItem profitItem = new JMenuItem("예상 수익 확인");
+		profitItem.addActionListener(e -> {
+			ProfitCalculatorView view = new ProfitCalculatorView(user);
+			view.setVisible(true);
+		});
+		profitMenu.add(profitItem);
+
+		// 세 번째 메뉴: 자세한 정보
+		JMenu detailMenu = new JMenu("자세한 정보");
+		JMenuItem detailItem = new JMenuItem("은행 정보 보기");
+		detailItem.addActionListener(e -> {
+			BankInfoView view = new BankInfoView();  // 새 창으로 은행 이미지 및 링크 보여줌
+			view.setVisible(true);
+		});
+		detailMenu.add(detailItem);
+
+	// 메뉴바에 세 메뉴 추가
+		menuBar.add(recommendMenu);
+		menuBar.add(profitMenu);
+		menuBar.add(detailMenu);
+
+
+		return menuBar;
+	}
+
+	public void showMain() {
+		setVisible(true);
 	}
 }

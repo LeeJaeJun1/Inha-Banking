@@ -11,4 +11,9 @@ public class Product {
 		this.interestRate = interestRate;
 		this.periodMonths = periodMonths;
 	}
+
+	@Override
+	public String toString() {
+		return name + " (" + interestRate + "%, " + periodMonths + "개월)";
+	}
 }

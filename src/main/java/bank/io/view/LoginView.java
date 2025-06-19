@@ -21,7 +21,7 @@ public class LoginView {
 		JButton loginBtn = new JButton("로그인");
 		JButton goSignupBtn = new JButton("회원가입");
 
-		panel.add(new JLabel("아이디:")); panel.add(usernameField);
+		panel.add(new JLabel("아이디/이름:")); panel.add(usernameField);
 		panel.add(new JLabel("비밀번호:")); panel.add(passwordField);
 		panel.add(loginBtn); panel.add(goSignupBtn);
 
@@ -32,7 +32,7 @@ public class LoginView {
 			if (loggedIn != null) {
 				JOptionPane.showMessageDialog(frame, "로그인 성공");
 				frame.dispose();
-				new MainView().createWithUser(loggedIn); // 추천화면 진입
+				new MainView(loggedIn).showMain();// 추천화면 진입
 			} else {
 				JOptionPane.showMessageDialog(frame, "로그인 실패");
 			}
