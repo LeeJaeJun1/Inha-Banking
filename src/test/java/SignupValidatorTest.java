@@ -1,9 +1,9 @@
 public class SignupValidatorTest {
     public static void main(String[] args) {
-        testScenario("user123", "pass@123", true);
-        testScenario("longusernameover10", "pass@123", true);
-        testScenario("user456", "password", true);
-        testScenario("user789", "p@", true);
+        testScenario("이재준", "!1234", true);
+        testScenario("이재준이민기김나현박은경", "!1234", true);
+        testScenario("이재준", "1234", true);
+        testScenario("이재준이민기김나현박은경", "1234", true);
         testScenario("", "", true);
     }
 

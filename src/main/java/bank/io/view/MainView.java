@@ -15,7 +15,7 @@ public class MainView extends JFrame {
 	public MainView(User user) {
 		this.user = user;
 
-		setTitle("INHA-Banking 메인화면");
+		setTitle("INHA-Banking");
 		setSize(600, 400);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

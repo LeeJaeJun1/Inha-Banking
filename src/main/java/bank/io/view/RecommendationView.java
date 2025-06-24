@@ -59,7 +59,7 @@ public class RecommendationView extends JFrame {
 
         scores.sort((a, b) -> Double.compare(b.total, a.total));
 
-        JLabel topLabel = new JLabel("\uD83D\uDCA1 " + (int)(principal / 10000) + "만원 기준 추천 순위 (1~3위)");
+        JLabel topLabel = new JLabel((int)(principal / 10000) + "만원 기준 추천 순위 (1~3위)");
         topLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
         topLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         resultPanel.add(topLabel);
@@ -79,7 +79,7 @@ public class RecommendationView extends JFrame {
             resultPanel.add(rankCard);
         }
 
-        JLabel allLabel = new JLabel("\uD83D\uDCC4 전체 추천 상품 목록");
+        JLabel allLabel = new JLabel("전체 추천 상품 목록");
         allLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
         allLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         resultPanel.add(allLabel);

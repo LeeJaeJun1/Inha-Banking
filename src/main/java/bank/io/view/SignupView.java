@@ -51,13 +51,6 @@ public class SignupView {
 				return;
 			}
 
-			if(pass.length() < 4 && !pass.matches(".*[!@#$%^&*()\\\\-_=+{}\\\\[\\\\]|;:'\\\",.<>/?].*")) {
-				JOptionPane.showMessageDialog(null, "비밀번호는 최소 4글자 이상이며 특수문자를 반드시 포함해야합니다.");
-				return;
-			}
-
-
-
 			if (controller.register(user, pass, age, gender, job)) {
 				JOptionPane.showMessageDialog(frame, "가입 완료!");
 				frame.dispose();

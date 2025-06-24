@@ -18,8 +18,8 @@ public class ProductRepository {
 			String sql = """
                 SELECT * FROM products
                 WHERE ? BETWEEN target_age_min AND target_age_max
-                AND (gender = ? OR gender = 'all')
-                AND (job = ? OR job = 'all')
+                AND (gender = ? OR gender = '기타')
+                AND (job = ? OR job = '기타')
             """;
 
 			// H2 데이터베이스에 연결을 생성하고 있음. 아래 세 줄을 통해 동적으로 사용자 입력값인 age,gender,job을 바인딩하고 있다.

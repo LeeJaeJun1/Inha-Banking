@@ -24,7 +24,11 @@ public class BankInfoView extends JFrame {
                 {"카카오뱅크", "images/kakao.png", "https://www.kakaobank.com/products/savings"},
                 {"국민은행", "images/KB.png", "https://obank.kbstar.com/quics?page=C060866&cc=b030658:b029684&isNew=N&prcode=DP01001510"},
                 {"우리은행", "images/wori.jpeg", "https://spot.wooribank.com/pot/Dream?withyou=PODEP0001"},
-                {"신한은행", "images/sinhan.png", "https://bank.shinhan.com/index.jsp#020102010110"}
+                {"신한은행", "images/sinhan.png", "https://bank.shinhan.com/index.jsp#020102010110"},
+                {"토스뱅크", "images/toss.jpeg", "https://www.tossbank.com/product-service/savings/time-deposit"},
+                {"하나은행", "images/hana.jpeg", "https://www.kebhana.com/cont/mall/mall09/mall0902/mall090201/index.jsp"},
+                {"신협", "images/sin.png", "https://www.cu.co.kr/product/ad/fnncGoods/selectFnncGoodsDpstList.do?mi=100185"},
+                {"IBK저축은행", "images/ibk.png", "https://www.ibksb.co.kr/m/deposit"}
         };
 
         for (String[] bank : banks) {
@@ -40,7 +44,7 @@ public class BankInfoView extends JFrame {
                         try {
                             Desktop.getDesktop().browse(new URI(bank[2]));
                         } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(panel, "웹페이지 열기에 실패했습니다.");
+                            JOptionPane.showMessageDialog(panel, "실패했습니다.");
                         }
                     }
                 });
